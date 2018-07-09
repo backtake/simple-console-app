@@ -52,7 +52,7 @@ public class Validator {
     }
 
     public boolean isPhoneNumberValid(String phoneNumber) {
-        String pattern = "(?=.*[0-9])(?=\\S+$).{9}";
+        String pattern = "[0-9]{9}";
         return phoneNumber.matches(pattern);
     }
 }
