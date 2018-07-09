@@ -50,4 +50,8 @@ public class AppController {
             }
         }
     }
+
+    private String getInput(Scanner scanner){
+        return scanner.nextLine();
+    }
 }
