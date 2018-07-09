@@ -10,6 +10,7 @@ import com.backtake.simpleconsoleapp.view.View;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Scanner;
 
 public class AppController {
@@ -212,4 +213,7 @@ public class AppController {
         return encryptPassword.getSecuredPassword(password);
     }
 
+    private void listAllUsers() {
+        ((List<User>) repository.findAll()).stream().map(User::toString).forEach(System.out::println);
+    }
 }
