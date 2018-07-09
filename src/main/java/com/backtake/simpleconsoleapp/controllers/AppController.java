@@ -213,6 +213,18 @@ public class AppController {
         return encryptPassword.getSecuredPassword(password);
     }
 
+    private String enterLogin(Scanner scanner) {
+        String login;
+        view.displayEnterLogin();
+
+        while(true) {
+            login = getInput(scanner);
+            if(validator.isLoginValid(login)) {
+                return login;
+            }
+        }
+    }
+
     private void listAllUsers() {
         ((List<User>) repository.findAll()).stream().map(User::toString).forEach(System.out::println);
     }
