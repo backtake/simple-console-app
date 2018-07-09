@@ -8,6 +8,7 @@ import com.backtake.simpleconsoleapp.user.UserRepository;
 import com.backtake.simpleconsoleapp.view.View;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.lang.reflect.Field;
 import java.util.Scanner;
 
 public class AppController {
@@ -128,6 +129,19 @@ public class AppController {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+    }
+
+    private void saveToDbIfProvidedDataCorrect(User user) throws IllegalAccessException {
+        Field[] attributes = user.getClass().getDeclaredFields();
+
+        for(Field attribute: attributes) {
+            attribute.setAccessible(true);
+            if(attribute.getType().getName().equals("java.lang.String")&&attribute.get(user)==null) {
+                view.displayNotSavedInfo();
+                return;
+            }
+        }
+        repository.save(user);
     }
 
 }
