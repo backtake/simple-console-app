@@ -52,6 +52,10 @@ public class AppController {
         }
     }
 
+    private String getInput(Scanner scanner){
+        return scanner.nextLine();
+    }
+
     private void logIn(Scanner scanner) {
         User user = getLoggedUser(scanner);
         if(user!=null) {
@@ -74,8 +78,25 @@ public class AppController {
         return repository.findByLogin(login).isPresent()&&verifyUserPassword.verifyUserPassword(login, password);
     }
 
+    private void goToLoggedMenu(Scanner scanner, User user) {
+        boolean isRunning = true;
 
-    private String getInput(Scanner scanner){
-        return scanner.nextLine();
+        while(isRunning) {
+            view.displayLoggedMenu(user);
+
+            switch (getInput(scanner)) {
+                case "1":
+                    user.setPhoneNumber(enterPhoneNumber(scanner));
+                    break;
+                case "2":
+                    user.setEmail(enterEmail(scanner));
+                    break;
+                case "0":
+                    isRunning = false;
+                    break;
+            }
+        }
+        repository.save(user);
     }
+
 }
