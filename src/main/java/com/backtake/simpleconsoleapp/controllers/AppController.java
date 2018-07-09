@@ -144,4 +144,29 @@ public class AppController {
         repository.save(user);
     }
 
+    private String enterEmail(Scanner scanner) {
+        String email;
+        view.displayCreateEmail();
+
+        while(true) {
+            email = getInput(scanner);
+            if(validator.isEmailValid(email)) {
+                return email;
+            }
+        }
+    }
+
+    private String enterPhoneNumber(Scanner scanner) {
+        String phoneNumber;
+        view.displayCreatePhoneNumber();
+
+        while(true) {
+            phoneNumber = getInput(scanner);
+            if(validator.isPhoneNumberValid(phoneNumber)) {
+                return phoneNumber;
+            }
+            view.displayCreateInfoNotLongEnough();
+        }
+    }
+
 }
