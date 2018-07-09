@@ -157,6 +157,7 @@ public class AppController {
             if(validator.isEmailValid(email)) {
                 return email;
             }
+            view.displayCreateEmailNoReqCharactersInfo();
         }
     }
 
@@ -195,6 +196,7 @@ public class AppController {
             if(validator.isPasswordValid(password)) {
                 return password;
             }
+            view.displayCreatePasswordNoReqCharactersInfo();
         }
     }
 
@@ -224,6 +226,7 @@ public class AppController {
             if(validator.isLoginValid(login)) {
                 return login;
             }
+            view.displayCreateLoginInfoIfAlreadyExists();
         }
     }
 

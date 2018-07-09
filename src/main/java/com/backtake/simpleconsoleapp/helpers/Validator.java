@@ -23,12 +23,10 @@ public class Validator {
     public boolean isLoginValid(String login) {
         List<User> users = (List<User>) repository.findAll();
         if (login.length()<3) {
-            view.displayCreateInfoNotLongEnough();
             return false;
         }
         for(User u: users) {
             if(login.equals(u.getLogin())){
-                view.displayCreateLoginInfoIfAlreadyExists();
                 return false;
             }
         }
@@ -36,11 +34,7 @@ public class Validator {
     }
 
     public boolean isPasswordValid(String password) {
-        if((password.length()>=8)&&(hasReqPattern(password))) {
-            return true;
-        }
-        view.displayCreatePasswordNoReqCharactersInfo();
-        return false;
+        return (password.length() >= 8) && (hasReqPattern(password));
     }
 
     private boolean hasReqPattern(String password) {
@@ -49,11 +43,7 @@ public class Validator {
     }
 
     public boolean isEmailValid(String email) {
-        if(hasEmailReqPattern(email)){
-            return true;
-        }
-        view.displayCreateEmailNoReqCharactersInfo();
-        return false;
+        return hasEmailReqPattern(email);
     }
 
     public boolean hasEmailReqPattern(String email) {

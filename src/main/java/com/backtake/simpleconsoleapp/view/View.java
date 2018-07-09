@@ -22,7 +22,7 @@ public class View {
     }
 
     public void displayCreateLoginInfoIfAlreadyExists() {
-        System.out.println("Login already exists");
+        System.out.println("Login is not >=3 characters long or already exists");
     }
 
     public void displayEnterPasswordMenu() {
