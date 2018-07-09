@@ -7,6 +7,8 @@ import com.backtake.simpleconsoleapp.user.UserRepository;
 import com.backtake.simpleconsoleapp.view.View;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Scanner;
+
 public class AppController {
 
     private View view;
@@ -25,5 +27,27 @@ public class AppController {
         this.verifyUserPassword = verifyUserPassword;
     }
 
+    public void runApp() {
+        boolean isRunning = true;
+        Scanner scanner = new Scanner(System.in);
 
+        while(isRunning) {
+            view.displayMenu();
+            switch (getInput(scanner)) {
+                case "1":
+                    logIn(scanner);
+                    break;
+                case "2":
+                    registerUser(scanner);
+                    break;
+                case "666":
+                    listAllUsers();
+                    break;
+                case "0":
+                    view.displayByeByeInfo();
+                    isRunning = false;
+                    break;
+            }
+        }
+    }
 }
