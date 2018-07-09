@@ -2,6 +2,7 @@ package com.backtake.simpleconsoleapp.controllers;
 
 import com.backtake.simpleconsoleapp.helpers.Validator;
 import com.backtake.simpleconsoleapp.helpers.passwordutils.EncryptPassword;
+import com.backtake.simpleconsoleapp.helpers.passwordutils.PasswordGenerator;
 import com.backtake.simpleconsoleapp.helpers.passwordutils.VerifyUserPassword;
 import com.backtake.simpleconsoleapp.user.User;
 import com.backtake.simpleconsoleapp.user.UserRepository;
@@ -167,6 +168,48 @@ public class AppController {
             }
             view.displayCreateInfoNotLongEnough();
         }
+    }
+
+    private String enterPassword(Scanner scanner) {
+
+        while(true) {
+            view.displayEnterPasswordMenu();
+            switch (getInput(scanner)) {
+                case "1":
+                    return generatePassword();
+                case "2":
+                    return providePassword(scanner);
+            }
+        }
+    }
+
+    private String providePassword(Scanner scanner) {
+        String password;
+        view.displayEnterPassword();
+
+        while(true) {
+            password = getInput(scanner);
+            if(validator.isPasswordValid(password)) {
+                return password;
+            }
+        }
+    }
+
+    private String generatePassword() {
+        String password;
+        PasswordGenerator passwordGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
+                .useDigits(true)
+                .useLower(true)
+                .useUpper(true)
+                .usePunctuation(true)
+                .build();
+        password = passwordGenerator.generate(8);
+        view.displayGeneratedPassword(password);
+        return password;
+    }
+
+    private String generateSecuredPassword(String password) {
+        return encryptPassword.getSecuredPassword(password);
     }
 
 }
