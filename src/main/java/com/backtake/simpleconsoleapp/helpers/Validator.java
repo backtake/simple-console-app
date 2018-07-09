@@ -58,4 +58,9 @@ public class Validator {
         String pattern = "[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})";
         return email.matches(pattern);
     }
+
+    public boolean isPhoneNumberValid(String phoneNumber) {
+        String pattern = "(?=.*[0-9])(?=\\S+$).{9}";
+        return phoneNumber.matches(pattern);
+    }
 }
