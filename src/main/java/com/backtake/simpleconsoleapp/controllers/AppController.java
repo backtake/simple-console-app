@@ -99,4 +99,35 @@ public class AppController {
         repository.save(user);
     }
 
+    private void registerUser(Scanner scanner) {
+        boolean isRunning = true;
+        User user = new User();
+
+        while(isRunning) {
+            view.displayRegistrationMenu();
+            switch (getInput(scanner)) {
+                case "1":
+                    user.setLogin(enterLogin(scanner));
+                    break;
+                case "2":
+                    user.setPassword(generateSecuredPassword(enterPassword(scanner)));
+                    break;
+                case "3":
+                    user.setPhoneNumber(enterPhoneNumber(scanner));
+                    break;
+                case "4":
+                    user.setEmail(enterEmail(scanner));
+                    break;
+                case "0":
+                    isRunning = false;
+                    break;
+            }
+        }
+        try {
+            saveToDbIfProvidedDataCorrect(user);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
