@@ -31,4 +31,39 @@ public class ValidatorTest {
     public void isPasswordValidTestNotLongEnough() {
         assertFalse(validator.isPasswordValid("test"));
     }
+
+    @Test
+    public void isPasswordValidTestNoReqPattern() {
+        assertFalse(validator.isPasswordValid("asdfghjkp"));
+    }
+
+    @Test
+    public void isPasswordValidTestCorrectPassword() {
+        assertTrue(validator.isPasswordValid("V@l1dpass"));
+    }
+
+    @Test
+    public void isPhoneNumberValidTestCorrect() {
+        assertTrue(validator.isPhoneNumberValid("111111111"));
+    }
+
+    @Test
+    public void isPhoneNumberValidTestNotLongEnough() {
+        assertFalse(validator.isPhoneNumberValid("21142"));
+    }
+
+    @Test
+    public void isPhoneNumberValidTestTooLong() {
+        assertFalse(validator.isPhoneNumberValid("11111111111111"));
+    }
+
+    @Test
+    public void isPhoneNumberValidTestNotOnlyNumbers() {
+        assertFalse(validator.isPhoneNumberValid("as2211331"));
+    }
+
+    @Test
+    public void isPhoneNumberValidTestWhiteSpaces() {
+        assertFalse(validator.isPhoneNumberValid("11 22 334"));
+    }
 }
