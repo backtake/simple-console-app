@@ -45,4 +45,17 @@ public class Validator {
         String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}";
         return password.matches(pattern);
     }
+
+    public boolean isEmailValid(String email) {
+        if(hasEmailReqPattern(email)){
+            return true;
+        }
+        view.displayCreateEmailNoReqCharactersInfo();
+        return false;
+    }
+
+    public boolean hasEmailReqPattern(String email) {
+        String pattern = "[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})";
+        return email.matches(pattern);
+    }
 }
