@@ -3,6 +3,7 @@ package com.backtake.simpleconsoleapp.controllers;
 import com.backtake.simpleconsoleapp.helpers.Validator;
 import com.backtake.simpleconsoleapp.helpers.passwordutils.EncryptPassword;
 import com.backtake.simpleconsoleapp.helpers.passwordutils.VerifyUserPassword;
+import com.backtake.simpleconsoleapp.user.User;
 import com.backtake.simpleconsoleapp.user.UserRepository;
 import com.backtake.simpleconsoleapp.view.View;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,29 @@ public class AppController {
             }
         }
     }
+
+    private void logIn(Scanner scanner) {
+        User user = getLoggedUser(scanner);
+        if(user!=null) {
+            goToLoggedMenu(scanner, user);
+        } else {
+            view.displayWrongLoginOrPasswordInfo();
+        }
+    }
+
+    private User getLoggedUser(Scanner scanner) {
+        view.displayEnterLogin();
+        String login = getInput(scanner);
+        view.displayEnterPassword();
+        String password = getInput(scanner);
+
+        return (verifyLoginInfo(login,password)) ? repository.findByLogin(login).get() : null;
+    }
+
+    private boolean verifyLoginInfo(String login, String password) {
+        return repository.findByLogin(login).isPresent()&&verifyUserPassword.verifyUserPassword(login, password);
+    }
+
 
     private String getInput(Scanner scanner){
         return scanner.nextLine();
