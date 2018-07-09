@@ -16,6 +16,9 @@ public class PasswordUtils {
     private static final int ITERATIONS = 10000;
     private static final int KEY_LENGTH = 256;
 
+    //I've used this method only once to generate salt,
+    // I decided that theres no need for generating separate salt for every user
+    // instead Im going to keep salt in application.properties
     public static String getSalt(int length) {
         StringBuilder returnValue = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
