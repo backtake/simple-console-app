@@ -66,4 +66,24 @@ public class ValidatorTest {
     public void isPhoneNumberValidTestWhiteSpaces() {
         assertFalse(validator.isPhoneNumberValid("11 22 334"));
     }
+
+    @Test
+    public void isEmailValidTestWrongEmail1() {
+        assertFalse(validator.isEmailValid("@.pl"));
+    }
+
+    @Test
+    public void isEmailValidTestWrongEmail2() {
+        assertFalse(validator.isEmailValid("aaaaa@."));
+    }
+
+    @Test
+    public void isEmailValidTestWrongEmail3() {
+        assertFalse(validator.isEmailValid("@aaaaaa.pl"));
+    }
+
+    @Test
+    public void isEmailValidTestCorrect() {
+        assertTrue(validator.isEmailValid("corect@email.pl"));
+    }
 }
