@@ -1,30 +1,41 @@
 package com.backtake.simpleconsoleapp.helpers;
 
+import com.backtake.simpleconsoleapp.user.User;
 import com.backtake.simpleconsoleapp.user.UserRepository;
-import com.backtake.simpleconsoleapp.view.View;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class ValidatorTest {
 
-    @Autowired
+    @InjectMocks
     Validator validator;
 
-    @MockBean
+    @Mock
     UserRepository userRepository;
 
-    @MockBean
-    View view;
+    User user;
 
     @Before
     public void setUp(){
-        this.validator = new Validator(userRepository, view);
+        MockitoAnnotations.initMocks(this);
+        this.validator = new Validator(userRepository);
+        user = new User();
+        user.setLogin("Jan");
+        List<User> users = new ArrayList<>();
+        users.add(user);
+        Mockito.when(userRepository.findAll())
+                .thenReturn(users);
     }
 
     @Test
@@ -85,5 +96,20 @@ public class ValidatorTest {
     @Test
     public void isEmailValidTestCorrect() {
         assertTrue(validator.isEmailValid("corect@email.pl"));
+    }
+
+    @Test
+    public void isLoginValidTestTooShort() {
+        assertFalse(validator.isLoginValid("ja"));
+    }
+
+    @Test
+    public void isLoginValidTestNotUnique() {
+        assertFalse(validator.isLoginValid("Jan"));
+    }
+
+    @Test
+    public void isLoginValidTestCorrect() {
+        assertTrue(validator.isLoginValid("Piotr"));
     }
 }
