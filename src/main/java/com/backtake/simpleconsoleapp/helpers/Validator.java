@@ -4,9 +4,11 @@ import com.backtake.simpleconsoleapp.user.User;
 import com.backtake.simpleconsoleapp.user.UserRepository;
 import com.backtake.simpleconsoleapp.view.View;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class Validator {
 
     private UserRepository repository;
