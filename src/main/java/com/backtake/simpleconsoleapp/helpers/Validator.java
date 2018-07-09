@@ -32,4 +32,17 @@ public class Validator {
         }
         return true;
     }
+
+    public boolean isPasswordValid(String password) {
+        if((password.length()>=8)&&(hasReqPattern(password))) {
+            return true;
+        }
+        view.displayCreatePasswordNoReqCharactersInfo();
+        return false;
+    }
+
+    private boolean hasReqPattern(String password) {
+        String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}";
+        return password.matches(pattern);
+    }
 }
